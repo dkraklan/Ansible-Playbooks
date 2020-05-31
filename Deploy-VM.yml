@@ -2,6 +2,7 @@
 -
   gather_facts: false
   name: Deploy Centos 7 VM
+  hosts: all
   tasks:
     -
       delegate_to: localhost
