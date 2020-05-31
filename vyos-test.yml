@@ -1,5 +1,5 @@
-- name: Vyos Test
-  hosts: all
+name: Vyos Test
+hosts: all
 
 tasks:
   - name: show configuration on ethernet devices eth0 and eth1
