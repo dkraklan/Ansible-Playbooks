@@ -6,3 +6,4 @@ tasks:
     with_items:
       - eth0
       - eth1
+test
