@@ -1,7 +1,6 @@
 ---
 -
   gather_facts: false
-  hosts: localhost
   name: Deploy Centos 7 VM
   tasks:
     -
