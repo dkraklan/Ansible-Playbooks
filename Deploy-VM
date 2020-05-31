@@ -1,0 +1,31 @@
+---
+- hosts: localhost
+  gather_facts: no
+  tasks:
+  - name: Deploy Centos7
+    vmware_guest:
+      hostname: "{{ vcenter_server }}"
+      username: "{{ vcenter_user }}"
+      password: "{{ vcenter_pass }}"
+      validate_certs: False
+      name: web02
+      template: "Centos 7 Template x64"
+      datacenter: "{{ datacenter_name }}"
+      folder: /{{ datacenter_name }}/vm
+      cluster: "{{ cluster_name }}"
+      datastore: "esxi-Datastore"
+      networks:
+      - name: VM Network
+        ip: 10.10.0.200
+        netmask: 255.255.255.0
+        gateway: 10.10.0.1
+        type: static
+        dns_servers: 192.168.0.206
+      customization:
+        hostname: "web02"
+        dns_servers:
+        - 192.168.0.206
+        - 1.1.1.1
+      state: poweredon
+      wait_for_ip_address: yes
+    delegate_to: localhost
