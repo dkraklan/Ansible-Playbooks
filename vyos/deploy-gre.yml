@@ -4,4 +4,5 @@
   name: "Deploy GRE Tunnel test"
   tasks:
     - name: debug
-      debug: a_host
+      debug:
+        var: a_host
