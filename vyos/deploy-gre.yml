@@ -16,4 +16,4 @@
           - set interfaces tunnel {{ a_host.tunnel }} local-ip '{{ a_host.local_ip }}'
           - set interfaces tunnel {{ a_host.tunnel }} mtu '{{ a_host.mtu }}'
           - set interfaces tunnel {{ a_host.tunnel }} remote-ip '{{ b_host.local_ip }}'
-      when: inventory_hostname == '{ a_host.hostname }'
+      when: inventory_hostname == { a_host.hostname }
