@@ -7,4 +7,12 @@
       debug:
         var: a_host, b_host
 
-    - name: Configure {{ a_host.hostname }}
+    - name: Configure a_host
+      vyos_config:
+        lines:
+          - set interfaces tunnel {{ a_host.tunnel }} address '{{ a_host.address }}'
+          - set interfaces tunnel {{ a_host.tunnel }} description '{{ a_host.description }}'
+          - set interfaces tunnel {{ a_host.tunnel }} encapsulation '{{ a_host.encapsulation }}'
+          - set interfaces tunnel {{ a_host.tunnel }} local-ip '{{ a_host.local_ip }}'
+          - set interfaces tunnel {{ a_host.tunnel }} mtu '{{ a_host.mtu }}'
+          - set interfaces tunnel {{ a_host.tunnel }} remote-ip '{{ b_host.local_ip }}'
