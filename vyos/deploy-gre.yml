@@ -24,7 +24,7 @@
           - set interfaces tunnel {{ a_host.tunnel }} remote-ip '{{ b_host.local_ip }}'
 
     - name: Configure a_host
-      when: a_host.hostname == ansible_host
+      when: b_host.hostname == ansible_host
       vyos_config:
         lines:
           - set interfaces tunnel {{ b_host.tunnel }} address '{{ b_host.address }}'
@@ -38,7 +38,17 @@
       vyos_command:
         commands:
           - show interfaces tunnel
-          
+
 #    - name: debug hostnames
 #      debug:
 #        var: ansible_host, a_host.hostname
+
+
+ tunnel tun1 {
+     address 10.99.1.9/30
+    set description tun1->Nyj-router01-tun1
+    set  encapsulation gre
+    set  local-ip 76.227.243.242
+    set  mtu 1500
+    set  remote-ip 91.132.3.115
+ }
