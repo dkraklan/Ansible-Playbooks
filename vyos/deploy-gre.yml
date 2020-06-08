@@ -18,6 +18,6 @@
           - set interfaces tunnel {{ a_host.tunnel }} remote-ip '{{ b_host.local_ip }}'
       when: ansible_host == "{ a_host.hostname }"
 
-    - name: debug
+    - name: debug hostnames
       debug:
-        var: ansible_host
+        var: ansible_host, a_host.hostname
