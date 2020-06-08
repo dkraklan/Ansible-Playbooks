@@ -7,6 +7,11 @@
       debug:
         var: a_host, b_host
 
+    - name: Show Tunnels before Config
+      vyos_command:
+        commands:
+          - show interfaces tunnel
+
     - name: Configure a_host
       when: a_host.hostname == ansible_host
       vyos_config:
@@ -18,7 +23,22 @@
           - set interfaces tunnel {{ a_host.tunnel }} mtu '{{ a_host.mtu }}'
           - set interfaces tunnel {{ a_host.tunnel }} remote-ip '{{ b_host.local_ip }}'
 
+    - name: Configure a_host
+      when: a_host.hostname == ansible_host
+      vyos_config:
+        lines:
+          - set interfaces tunnel {{ b_host.tunnel }} address '{{ b_host.address }}'
+          - set interfaces tunnel {{ b_host.tunnel }} description '{{ b_host.description }}'
+          - set interfaces tunnel {{ b_host.tunnel }} encapsulation '{{ b_host.encapsulation }}'
+          - set interfaces tunnel {{ b_host.tunnel }} local-ip '{{ b_host.local_ip }}'
+          - set interfaces tunnel {{ b_host.tunnel }} mtu '{{ b_host.mtu }}'
+          - set interfaces tunnel {{ b_host.tunnel }} remote-ip '{{ a_host.local_ip }}'
 
-    - name: debug hostnames
-      debug:
-        var: ansible_host, a_host.hostname
+    - name: Show Tunnels after Config
+      vyos_command:
+        commands:
+          - show interfaces tunnel
+          
+#    - name: debug hostnames
+#      debug:
+#        var: ansible_host, a_host.hostname
