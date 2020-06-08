@@ -8,7 +8,6 @@
         var: a_host, b_host
 
     - name: Configure a_host
-      delegate_to: "{{ a_host.hostname }}"
       vyos_config:
         lines:
           - set interfaces tunnel {{ a_host.tunnel }} address '{{ a_host.address }}'
