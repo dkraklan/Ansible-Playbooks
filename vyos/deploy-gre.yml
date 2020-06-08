@@ -4,5 +4,4 @@
   name: "Deploy GRE Tunnel test"
   tasks:
     - name: debug
-      debug: msg={{ item }}
-      with_items: a_host1
+      debug: a_host
