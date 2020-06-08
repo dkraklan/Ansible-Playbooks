@@ -1,5 +1,8 @@
 ---
 -
   hosts: all
-  name: "Deploy GRE Tunnel test 99"
+  name: "Deploy GRE Tunnel test"
   tasks:
+    - name: debug
+      debug: msg={{ item }}
+      with_items: a_host
