@@ -17,3 +17,7 @@
           - set interfaces tunnel {{ a_host.tunnel }} mtu '{{ a_host.mtu }}'
           - set interfaces tunnel {{ a_host.tunnel }} remote-ip '{{ b_host.local_ip }}'
       when: ansible_host == "{ a_host.hostname }"
+
+    - name: debug
+      debug:
+        var: ansible_host
