@@ -15,7 +15,6 @@
       name: find most recent backup
       find:
         paths: /scratch/downloads/
-        age: 1h
         patterns: "*.tgz"
         recurse: yes
         depth: 5
