@@ -16,7 +16,7 @@
       find:
         paths: /scratch/downloads
         age: 1h
-        patterns: '*.gator.local.tgz'
+        patterns: '*.tgz'
         recurse: yes
       register: backup_files
 
