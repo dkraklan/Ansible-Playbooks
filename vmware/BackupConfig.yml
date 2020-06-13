@@ -18,6 +18,7 @@
         age: 1h
         patterns: "*.tgz"
         recurse: yes
+        depth: 5
       register: backup_files
 
     -
