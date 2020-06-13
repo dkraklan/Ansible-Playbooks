@@ -18,7 +18,7 @@
         age: 1h
         patterns: '*.gator.local.tgz'
         recurse: yes
-        register: backup_files
+      register: backup_files
 
 #    -
 #      name: copy files backup repo
