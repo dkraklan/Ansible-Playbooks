@@ -20,10 +20,10 @@
         recurse: yes
       register: backup_files
 
-    - 
+    -
       name: debug
-        debug:
-          var: backup_files
+      debug:
+        var: backup_files
 
 #    -
 #      name: copy files backup repo
