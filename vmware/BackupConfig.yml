@@ -14,9 +14,9 @@
     -
       name: find most recent backup
       find:
-        paths: /scratch/downloads
+        paths: /scratch/downloads/
         age: 1h
-        patterns: '*.tgz'
+        patterns: "*.tgz"
         recurse: yes
       register: backup_files
 
