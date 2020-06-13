@@ -25,6 +25,6 @@
       debug:
         var: backup_files
 
-#    -
-#      name: copy files backup repo
-#      command: scp -i /etc/ssh/keys-root/id_rsa /scratch/downloads/  esxibackup@cloud.gator.local:/volume1/backups/esxi_configs/
+    -
+      name: copy files backup repo
+      command: scp -i /etc/ssh/keys-root/id_rsa {{ backup_files }}  esxibackup@cloud.gator.local:/volume1/backups/esxi_configs/{{ ansible_date_time.epoch }}-{{ ansible_host }}.tgz
