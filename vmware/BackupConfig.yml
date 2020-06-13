@@ -20,7 +20,8 @@
         recurse: yes
       register: backup_files
 
-      - name: debug
+    - 
+      name: debug
         debug:
           var: backup_files
 
