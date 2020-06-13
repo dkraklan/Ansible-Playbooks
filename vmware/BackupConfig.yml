@@ -1,0 +1,25 @@
+---
+-
+  hosts: all
+  name: Backup ESXI Config
+  tasks:
+    -
+      name: Sync the Config
+      command: vim-cmd hostsvc/firmware/sync_config
+
+    -
+      name: Backup the Config
+      command: vim-cmd hostsvc/firmware/backup_config
+
+    -
+      name: find most recent backup
+      find:
+        paths: /scratch/downloads
+        age: 1h
+        patterns: '*.gator.local.tgz'
+        recurse: yes
+        register: backup_files
+
+#    -
+#      name: copy files backup repo
+#      command: scp -i /etc/ssh/keys-root/id_rsa /scratch/downloads/  esxibackup@cloud.gator.local:/volume1/backups/esxi_configs/
