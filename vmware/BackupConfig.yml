@@ -23,7 +23,7 @@
     -
       name: debug
       debug:
-        vars: backup_files
+        var: backup_files
       
 #    -
 #      name: copy files backup repo
