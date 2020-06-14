@@ -1,0 +1,19 @@
+{% for intf in nb_interfaces.json.results %}
+
+{%   if intf.description is defined %}
+set interface {{ intf.name }} description {{ intf.description }}
+{%  endif %}
+{%   for address in nb_ips.json.results %}
+{%     if address.interface.name == intf.name %}
+set interface {{ intf.name }} address {{ address.address }}
+{%     endif %}
+{%   endfor %}
+{%   if 'Trunk' in intf.description %}
+   switchport mode trunk
+   spanning-tree link-type point-to-point
+   switchport trunk group mlag-peer
+{%   endif %}
+{%   if 'tun' in intf.description %}
+set interface {{ intf.name }} encapsulation gre
+{%   endif %}
+{% endfor %}
