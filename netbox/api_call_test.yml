@@ -63,9 +63,9 @@
     -
       name: Get {{ inventory_hostname }} interfaces
       debug:
-        var: nb_all_devices
+        var: nb_interfaces
 
     -
       name: Get {{ inventory_hostname }} IP Addresses
       debug:
-        var: nb_all_devices
+        var: nb_ips
