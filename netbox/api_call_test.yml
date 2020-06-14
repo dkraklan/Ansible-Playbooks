@@ -53,19 +53,19 @@
     -
       name: Show All devices
       debug:
-        vars: nb_all_devices
+        var: nb_all_devices
 
     -
       name: Get {{ inventory_hostname }} device
       debug:
-        vars: nb_device
+        var: nb_device
 
     -
       name: Get {{ inventory_hostname }} interfaces
       debug:
-        vars: nb_all_devices
+        var: nb_all_devices
 
     -
       name: Get {{ inventory_hostname }} IP Addresses
       debug:
-        vars: nb_all_devices
+        var: nb_all_devices
