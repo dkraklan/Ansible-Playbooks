@@ -4,7 +4,7 @@
   name: Backup ESXI Config
   tasks:
     -
-      name: Sync the Config
+      name: Sync the Configadfasd
       command: vim-cmd hostsvc/firmware/sync_config
 
     -
