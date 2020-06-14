@@ -23,8 +23,10 @@
     -
       name: debug
       debug:
-        var: backup_files.files
+        var: item.path
+        with_items: "{{ backup_files }}"
       
     -
       name: copy files backup repo
-      command: scp -i /etc/ssh/keys-root/id_rsa {{ backup_files.files }}  esxibackup@cloud.gator.local:/volume1/backups/esxi_configs/{{ ansible_date_time.date }}-{{ ansible_host }}.tgz
+      command: scp -i /etc/ssh/keys-root/id_rsa {{ item.path }}  esxibackup@cloud.gator.local:/volume1/backups/esxi_configs/{{ ansible_date_time.date }}-{{ ansible_host }}.tgz
+      with_items: "{{ backup_files }}"
