@@ -27,4 +27,4 @@
       
     -
       name: copy files backup repo
-      command: scp -i /etc/ssh/keys-root/id_rsa {{ backup_files.path }}  esxibackup@cloud.gator.local:/volume1/backups/esxi_configs/{{ ansible_date_time.date }}-{{ ansible_host }}.tgz
+      command: scp -i /etc/ssh/keys-root/id_rsa {{ backup_files.files.path }}  esxibackup@cloud.gator.local:/volume1/backups/esxi_configs/{{ ansible_date_time.date }}-{{ ansible_host }}.tgz
