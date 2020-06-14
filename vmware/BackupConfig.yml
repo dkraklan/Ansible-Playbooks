@@ -19,8 +19,13 @@
         recurse: yes
         depth: 5
       register: backup_files
-      
+
+    - name: debug
+      debug:
+        var: "{{ item.path }}"
+      with_items: "{{ backup_files['files'] }}"
+
     -
       name: copy files backup repo
       command: scp -i /etc/ssh/keys-root/id_rsa {{ item.path }}  esxibackup@cloud.gator.local:/volume1/backups/esxi_configs/{{ ansible_date_time.date }}-{{ ansible_host }}.tgz
-      with_items: backup_files['files']
+      with_items: "{{ backup_files['files'] }}"
