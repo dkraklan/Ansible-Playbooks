@@ -43,6 +43,7 @@
       template:
           src: "../templates/junos.j2"
           dest: "/home/awx/tmp_files/{{ inventory_hostname }}.conf"
+          force: yes
 
     - name: Show where file is stored
       debug:
