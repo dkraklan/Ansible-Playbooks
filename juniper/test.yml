@@ -41,7 +41,7 @@
 
     - name: Create configuration file for {{ inventory_hostname }}
       template:
-          src: "../templates/junodfasdfs.j2"
+          src: "../templates/junos.j2"
           dest: "/home/awx/tmp_files/{{ inventory_hostname }}.conf"
 
     - name: Show where file is stored
