@@ -48,7 +48,7 @@
       template:
           src: "../templates/junos.j2"
           dest: "/home/awx/tmp_files/{{ inventory_hostname }}.conf"
-
+          lstrip_blocks: yes
 
     - name: Show where file is stored
       debug:
