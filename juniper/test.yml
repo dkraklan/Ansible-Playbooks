@@ -39,10 +39,10 @@
           Authorization: "Token {{ netbox_token }}"
       register: nb_ips
 
-    # - name: Create configuration file for {{ inventory_hostname }}
-    #   template:
-    #       src: "templates/junos.j2"
-    #       dest: "{{ working_folder }}/{{ inventory_hostname }}/{{ inventory_hostname }}.conf"
+    - name: Create configuration file for {{ inventory_hostname }}
+      template:
+          src: "../templates/junos.j2"
+          dest: "{{ working_folder }}/{{ inventory_hostname }}/{{ inventory_hostname }}.conf"
 
     - name: Show where file is stored
       debug:
