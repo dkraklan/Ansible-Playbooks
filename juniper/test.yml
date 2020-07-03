@@ -58,6 +58,6 @@
     - name: load configure file into device
       junos_config:
         src: /home/awx/tmp_files/{{ inventory_hostname }}.conf
-        #src_format: set
+        src_format: text
         update: merge
         comment: update config
