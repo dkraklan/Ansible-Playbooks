@@ -3,16 +3,13 @@
   hosts: all
   name: "Test Juniper Connectivity"
   tasks:
-    - name: Checking NETCONF connectivity
-      wait_for:
-        host: "{{ inventory_hostname }}"
-        port: 830
-        timeout: 5
-
-    - name: Retrieving information from devices running Junos OS
-      juniper_junos_facts:
-        host: "{{ inventory_hostname }}"
-
-    - name: Print version
+    - name: "Configure op script"
+      juniper_junos_config:
+        config_mode: "private"
+        load: "set"
+        lines:
+          - "set system scripts op file bgp.slax"
+      register: response
+    - name: "Print the config changes"
       debug:
-        var: junos.version
+        var: response.diff_lines
