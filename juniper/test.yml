@@ -1,14 +1,45 @@
 ---
 -
   hosts: all
-  name: "Test Juniper Connectivity"
+  name: "Deploy Juniper Config"
   gather_facts: no
+  vars:
+    netbox_url: http://netbox.gator.local
+    netbox_token: 6517d7e3a342463e11f95a6d9378c161aa159dc8
+    working_folder: results
   tasks:
-    - debug:
-        msg:
-          - "{{ ansible_user }}"
-          - "{{ ansible_password }}"
-          
-    - name: "Configure op script"
-      junos_command:
-        commands: show version
+
+    - name: Get {{ inventory_hostname }} from NetBox
+      uri:
+        url: "{{ netbox_url }}/api/dcim/devices/?name={{ inventory_hostname }}"
+        method: GET
+        return_content: yes
+        headers:
+          accept: "application/json"
+          Authorization: "Token {{ netbox_token }}"
+      register: nb_device
+
+    - name: Get {{ inventory_hostname }} interfaces from NetBox
+      uri:
+        url: "{{ netbox_url }}/api/dcim/interfaces/?device={{ inventory_hostname }}"
+        method: GET
+        return_content: yes
+        headers:
+          accept: "application/json"
+          Authorization: "Token {{ netbox_token }}"
+      register: nb_interfaces
+
+    - name: Get  IP addresses from NetBox
+      uri:
+        url: "{{ netbox_url }}/api/ipam/ip-addresses/?device={{ inventory_hostname }}"
+        method: GET
+        return_content: yes
+        headers:
+          accept: "application/json"
+          Authorization: "Token {{ netbox_token }}"
+      register: nb_ips
+
+    - name: Create configuration file for {{ inventory_hostname }}
+      template:
+          src: "templates/{{ platforms[0] }}.j2"
+          dest: "{{ working_folder }}/{{ inventory_hostname }}/{{ inventory_hostname }}.conf"
