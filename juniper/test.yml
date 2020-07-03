@@ -39,11 +39,16 @@
           Authorization: "Token {{ netbox_token }}"
       register: nb_ips
 
+    - name: Remove config file if it already exists
+      file:
+        path: "/home/awx/tmp_files/{{ inventory_hostname }}.conf"
+        state: absent
+
     - name: Create configuration file for {{ inventory_hostname }}
       template:
           src: "../templates/junos.j2"
           dest: "/home/awx/tmp_files/{{ inventory_hostname }}.conf"
-          force: yes
+
 
     - name: Show where file is stored
       debug:
