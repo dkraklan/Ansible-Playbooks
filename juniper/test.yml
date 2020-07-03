@@ -4,7 +4,7 @@
   name: "Test Juniper Connectivity"
   tasks:
     - name: "Configure op script"
-      juniper_junos_config:
+      junos_config:
         config_mode: "private"
         load: "set"
         lines:
