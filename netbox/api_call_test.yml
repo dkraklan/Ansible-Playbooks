@@ -51,21 +51,26 @@
       register: nb_ips
 
     -
-      name: Show All devices
-      debug:
-        var: nb_all_devices
-
-    -
-      name: Get {{ inventory_hostname }} device
-      debug:
-        var: nb_device
-
-    -
-      name: Get {{ inventory_hostname }} interfaces
-      debug:
-        var: nb_interfaces
-
-    -
-      name: Get {{ inventory_hostname }} IP Addresses
-      debug:
-        var: nb_ips
+    #   name: Show All devices
+    #   debug:
+    #     var: nb_all_devices
+    #
+    # -
+    #   name: Get {{ inventory_hostname }} device
+    #   debug:
+    #     var: nb_device
+    #
+    # -
+    #   name: Get {{ inventory_hostname }} interfaces
+    #   debug:
+    #     var: nb_interfaces
+    #
+    # -
+    #   name: Get {{ inventory_hostname }} IP Addresses
+    #   debug:
+    #     var: nb_ips
+    #
+    # -
+    #   name: Platform
+    #   debug:
+    #     var: nb_device

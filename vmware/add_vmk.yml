@@ -1,0 +1,8 @@
+---
+# Run with ansible-playbook -i netbox_inventory.yml deploy_fabric.yaml -u ansible -k
+- hosts: "all"
+  gather_facts: no
+
+  tasks:
+  -
+    name: Add VMK adapter
