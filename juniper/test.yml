@@ -53,3 +53,10 @@
     - name: Show where file is stored
       debug:
         msg: "/home/awx/tmp_files/{{ inventory_hostname }}.conf"
+
+    - name: load configure file into device
+      junos_config:
+        src: /home/awx/tmp_files/{{ inventory_hostname }}.conf
+        src_format: set
+        update: merge
+        comment: update config
