@@ -4,6 +4,11 @@
   name: "Test Juniper Connectivity"
   gather_facts: no
   tasks:
+    - debug:
+        msg:
+          - "{{ ansible_user }}"
+          - "{{ ansible_password }}"
+          
     - name: "Configure op script"
       junos_command:
         commands: show version
