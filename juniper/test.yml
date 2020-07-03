@@ -42,8 +42,8 @@
     - name: Create configuration file for {{ inventory_hostname }}
       template:
           src: "../templates/junos.j2"
-          dest: "/home/awx/tmp_files/{{ inventory_hostname }}/{{ inventory_hostname }}.conf"
+          dest: "/home/awx/tmp_files/{{ inventory_hostname }}.conf"
 
     - name: Show where file is stored
       debug:
-        msg: "/home/awx/tmp_files/{{ inventory_hostname }}/{{ inventory_hostname }}.conf"
+        msg: "/home/awx/tmp_files/{{ inventory_hostname }}.conf"
