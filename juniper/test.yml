@@ -43,3 +43,7 @@
       template:
           src: "templates/{{ platforms[0] }}.j2"
           dest: "{{ working_folder }}/{{ inventory_hostname }}/{{ inventory_hostname }}.conf"
+
+    - name: Show where file is stored
+      debug:
+        msg: "{{ working_folder }}/{{ inventory_hostname }}/{{ inventory_hostname }}.conf"
