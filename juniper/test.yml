@@ -39,25 +39,25 @@
           Authorization: "Token {{ netbox_token }}"
       register: nb_ips
 
-    # - name: Remove config file if it already exists
-    #   file:
-    #     path: "/home/awx/tmp_files/{{ inventory_hostname }}.conf"
-    #     state: absent
-    #
-    # - name: Create configuration file for {{ inventory_hostname }}
-    #   template:
-    #       src: "../templates/junos.j2"
-    #       dest: "/home/awx/tmp_files/{{ inventory_hostname }}.conf"
-    #       lstrip_blocks: yes
-    #       trim_blocks: yes
+    - name: Remove config file if it already exists
+      file:
+        path: "/home/awx/tmp_files/{{ inventory_hostname }}.set"
+        state: absent
+
+    - name: Create configuration file for {{ inventory_hostname }}
+      template:
+          src: "../templates/junos.j2"
+          dest: "/home/awx/tmp_files/{{ inventory_hostname }}.set"
+          lstrip_blocks: yes
+          trim_blocks: yes
 
     - name: Show where file is stored
       debug:
-        msg: "/home/awx/tmp_files/{{ inventory_hostname }}.conf"
+        msg: "/home/awx/tmp_files/{{ inventory_hostname }}.set"
 
     - name: load configure file into device
       junos_config:
-        src: /home/awx/tmp_files/{{ inventory_hostname }}.conf
-        src_format: text
+        src: /home/awx/tmp_files/{{ inventory_hostname }}.set
+        src_format: set
         update: merge
         comment: update config
