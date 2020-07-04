@@ -20,7 +20,6 @@ set system login user {{ sys.login.user[login]['name'] }} authentication encrypt
     {%endif %}
   {% elif "vlan" in intf.name %}
     {% set unit = intf.name.split('.') %}
-set interfaces vlan unit {{ unit[1] }} family inet address 69.69.69.69/20\
       {% for ips in nb_ips.json.results %}
         {% if ips.interface.id == intf.id %}
 set interfaces vlan unit {{ unit[1] }} family inet address {{ ips.address }}
