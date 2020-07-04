@@ -5,7 +5,7 @@ set system host-name {{ dev.name }}
 {% for ntp in sys.ntp %}
 set system ntp server {{ ntp }}
 {% endfor %}
-{% for user in sys.login.user %}
+{% for user in sys.login %}
 set system login user {{ user.name }} class {{ user.class }}
 set system login user {{ user.name }} authentication encrypted-password {{ user.password }}
 {% endfor %}
