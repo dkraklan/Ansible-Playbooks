@@ -1,6 +1,14 @@
 {% set vlansall = [] %}
 {% set dev = nb_device.json.results[0] %}
+{% set sys = nb_device.json.results[0].config_context.system %}
 set system host-name {{ dev.name }}
+{% for ntp in sys.ntp %}
+set system ntp server {{ ntp }}
+{% endfor %}
+{% for user in sys.login.user %}
+set system login user {{ user.name }} class {{ user.class }}
+set system login user {{ user.name }} authentication encrypted-password {{ user.encrypted-password }}
+{% endfor %}
 {% for intf in nb_interfaces.json.results %}
   {% if intf.description|length %}
 set interfaces {{ intf.name }} description {{ intf.description }}
