@@ -26,7 +26,8 @@ set system login user {{ sys.login.user[login]['name'] }} authentication encrypt
 {# Lets loop through all interfaces #}
 {% for intf in nb_interfaces.json.results %}
 {#Lets delete interfaces with no configs #}
-  {%  if (intf.description is not defined) and (intf.mode == null) %}
+  {% if (intf.description == '' ) and (intf.mode == none) %}
+  {# {% if intf.description == '' %} #}
 delete interfaces {{ intf.name }}
   {% endif %}
 
