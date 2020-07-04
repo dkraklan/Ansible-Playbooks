@@ -5,8 +5,11 @@
   {% if intf.description|length %}
 set interfaces {{ intf.name }} description "{{ intf.description }}"
     {% for vlans in intf.tagged_vlans %}
+      {% if vlans|length >1  %}
+set interfaces {{ intf.name }} unit 0 family ethernet-switching port-mode trunk
+      {% endif %}
 set interfaces {{ intf.name }} unit 0 family ethernet-switching vlan members {{ vlans.vid }}
 set vlans "{{ vlans.name }}" vlan-id {{ vlans. vid }}
     {% endfor %}
-  {%endif %}
+  {% endif %}
 {% endfor %}
