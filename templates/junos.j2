@@ -1,4 +1,4 @@
-{% set vlansall = [] %}
+
 
 {% for intf in nb_interfaces.json.results %}
 
@@ -6,13 +6,7 @@
 set interfaces {{ intf.name }} description {{ intf.description }}
     {% for vlans in intf.tagged_vlans %}
 set interfaces {{ intf.name }} unit 0 family ethernet-switching vlan members {{ vlans.vid }}
-      {%  vlansall.append({{ vlans.vid }}:{{vlans.name}} ) %}
+set vlans {{ vlans.name }} vlan-id {{ vlans. vid }}
     {% endfor %}
   {%endif %}
 {% endfor %}
-
-{% for vlans_add in vlansall.unique %}
-    {% set vid, vname = vlans_add.split(':') %}
-    set vlans {{ vname }} vlan-id {{ vid }}
-
-  {% endfor %}
