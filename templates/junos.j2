@@ -1,6 +1,9 @@
 
 {# Initialize the array for all the vlans, every interfaces vlans get added here, then we filter for unique ones later #}
 {% set vlansall = [] %}
+{# Initialize array tracking our layer 3 vlans  #}
+{% set l3_vlans = [] %}
+
 {# Json results for the device #}
 {% set dev = nb_device.json.results[0] %}
 {# Json results of the config context  #}
@@ -30,6 +33,7 @@ set system login user {{ sys.login.user[login]['name'] }} authentication encrypt
 {# configuer 1g interfaces  #}
   {% if  intf.type.value == "1000base-t" %}
     {% if (intf.description == '' ) and (intf.mode == none) %}
+
 delete interfaces {{ intf.name }}
     {% endif %}
     {% if intf.description|length %}
@@ -46,6 +50,7 @@ delete interfaces {{ intf.name }}
           {# if we see an IP address assigned to this interface from our nb_ips results lets assign it   #}
         {% if ips.interface.id == intf.id %}
 set interfaces vlan unit {{ unit[1] }} family inet address {{ ips.address }}
+          {% if l3_vlans.append( unit[1] ) %} {% endif %}
         {% endif %}
       {% endfor %}
     {% if intf.description|length %}
@@ -65,6 +70,12 @@ set interfaces lo0 unit 0 {{ intf.description }}
   {%endif %}
 {% endfor %}
 {% for vlans_add in vlansall|unique %}
-    {% set vid, vname = vlans_add.split(':') %}
+  {% set vid, vname = vlans_add.split(':') %}
 set vlans {{ vname }} vlan-id {{ vid }}
+{# Lets loop through our l3_vlans array and see if we have any layer3 vlans, if so define the l3 interface #}
+  {% for l3_vid in l3_vlans %}
+    {% if l3_vid == vid %}
+set vlans {{ vname }} l3-interface vlan.{{l3_vid}}
+    {%endif %}
+  {% endfor %}
 {% endfor %}
