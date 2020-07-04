@@ -1,4 +1,6 @@
 {% set vlansall = [] %}
+{% set dev = nb_device.json.results %}
+set system hostname {{ dev.hostname }}
 {% for intf in nb_interfaces.json.results %}
   {% if intf.description|length %}
 set interfaces {{ intf.name }} description {{ intf.description }}
