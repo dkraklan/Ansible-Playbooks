@@ -16,7 +16,7 @@ set system name-server {{ sys.name_server[ns] }}
 {% endfor %}
 
 {% for comm in sys.snmp %}
-set snmp community {{ sys.snmp[comm].name }} authorization {{ sys.snmp[comm][auth] }}
+set snmp community {{ sys.snmp[comm].name }} authorization {{ sys.snmp[comm].auth }}
 {% endfor %}
 {# loop through all the users defined in the config context #}
 {% for login in sys.login.user %}
@@ -25,6 +25,11 @@ set system login user {{ sys.login.user[login]['name'] }} authentication encrypt
 {% endfor %}
 {# Lets loop through all interfaces #}
 {% for intf in nb_interfaces.json.results %}
+{#Lets delete interfaces with no configs #}
+  {%  if (intf.description is not defined) and (intf.mode == null) %}
+delete interfaces {{ intf.name }}
+  {% endif %}
+
 {# configuer 1g interfaces  #}
   {% if  intf.type.value == "1000base-t" %}
     {% if intf.description|length %}
