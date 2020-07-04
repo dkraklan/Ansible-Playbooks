@@ -6,7 +6,7 @@
 set interfaces {{ intf.name }} description {{ intf.description }}
     {% for vlans in intf.tagged_vlans %}
 set interfaces {{ intf.name }} unit 0 family ethernet-switching vlan members {{ vlans.vid }}
-      {% set vlansall.append({{ vlans.vid }}:{{vlans.name}} ) %}
+      {%  vlansall.append({{ vlans.vid }}:{{vlans.name}} ) %}
     {% endfor %}
   {%endif %}
 {% endfor %}
