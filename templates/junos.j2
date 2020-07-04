@@ -11,7 +11,7 @@ set interfaces {{ intf.name }} unit 0 family ethernet-switching vlan members {{ 
   {%endif %}
 {% endfor %}
 
-{% for vlans_add in vlansall|unique %}
+{% for vlans_add in vlansall.unique %}
     {% set vid, vname = vlans_add.split(':') %}
     set vlans {{ vname }} vlan-id {{ vid }}
 
