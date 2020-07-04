@@ -1,7 +1,6 @@
 
-
+delete chassis auto-image-upgrade
 {% for intf in nb_interfaces.json.results %}
-
   {% if intf.description|length %}
 set interfaces {{ intf.name }} description "{{ intf.description }}"
     {% for vlans in intf.tagged_vlans %}
