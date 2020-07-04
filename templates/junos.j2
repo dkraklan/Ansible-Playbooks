@@ -1,14 +1,14 @@
-
-delete chassis auto-image-upgrade
-{% for intf in nb_interfaces.json.results %}
+{% set vlansall = [] %}
+{% for intf in results %}
   {% if intf.description|length %}
-set interfaces {{ intf.name }} description "{{ intf.description }}"
+set interfaces {{ intf.name }} description {{ intf.description }}
     {% for vlans in intf.tagged_vlans %}
-      {% if vlans|length >1  %}
-set interfaces {{ intf.name }} unit 0 family ethernet-switching port-mode trunk
-      {% endif %}
 set interfaces {{ intf.name }} unit 0 family ethernet-switching vlan members {{ vlans.vid }}
-set vlans "{{ vlans.name }}" vlan-id {{ vlans. vid }}
+        {% if vlansall.append( vlans.vid|string+":"+vlans.name ) %} {% endif %}
     {% endfor %}
-  {% endif %}
+  {%endif %}
 {% endfor %}
+{% for vlans_add in vlansall|unique %}
+    {% set vid, vname = vlans_add.split(':') %}
+set vlans {{ vname }} vlan-id {{ vid }}
+  {% endfor %}
