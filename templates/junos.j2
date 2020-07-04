@@ -1,9 +1,9 @@
 {% for intf in nb_interfaces.json.results %}
 
   {% if intf.description|length %}
-set interface {{ intf.name }} description {{ intf.description }}
+set interfaces {{ intf.name }} description {{ intf.description }}
     {% for vlans in intf.tagged_vlans %}
-set interface {{ intf.name }} unit 0 family ethernet-switching vlan members {{ vlans.vid }}
+set interfaces {{ intf.name }} unit 0 family ethernet-switching vlan members {{ vlans.vid }}
     {% endfor %}
   {%endif %}
 {% endfor %}
