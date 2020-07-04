@@ -1,15 +1,31 @@
+
+{# Initialize the array for all the vlans, every interfaces vlans get added here, then we filter for unique ones later #}
 {% set vlansall = [] %}
+{# Json results for the device #}
 {% set dev = nb_device.json.results[0] %}
+{# Json results of the config context  #}
 {% set sys = nb_device.json.results[0].config_context.system %}
-set system host-name {{ dev.name }}
+
+set system host-name "{{ dev.name }}"
 {% for ntp in sys.ntp %}
 set system ntp server {{ sys.ntp[ntp] }}
 {% endfor %}
+
+{% for ns in sys.name_server %}
+set system name-server {{ sys.name_server[ns] }}
+{% endfor %}
+
+{% for comm in sys.snmp %}
+set snmp community {{ sys.snmp[comm].name }} authorization {{ sys.snmp[comm][auth] }}
+{% endfor %}
+{# loop through all the users defined in the config context #}
 {% for login in sys.login.user %}
 set system login user {{ sys.login.user[login]['name'] }} class {{ sys.login.user[login]['class'] }}
 set system login user {{ sys.login.user[login]['name'] }} authentication encrypted-password "{{ sys.login.user[login]['password'] }}"
 {% endfor %}
+{# Lets loop through all interfaces #}
 {% for intf in nb_interfaces.json.results %}
+{# configuer 1g interfaces  #}
   {% if  intf.type.value == "1000base-t" %}
     {% if intf.description|length %}
   set interfaces {{ intf.name }} description {{ intf.description }}
@@ -18,9 +34,11 @@ set system login user {{ sys.login.user[login]['name'] }} authentication encrypt
         {% if vlansall.append( vlans.vid|string+":"+vlans.name ) %} {% endif %}
       {% endfor %}
     {%endif %}
+    {# Configure our l3 vlan interfaces #}
   {% elif "vlan" in intf.name %}
     {% set unit = intf.name.split('.') %}
       {% for ips in nb_ips.json.results %}
+          {# if we see an IP address assigned to this interface from our nb_ips results lets assign it   #}
         {% if ips.interface.id == intf.id %}
 set interfaces vlan unit {{ unit[1] }} family inet address {{ ips.address }}
         {% endif %}
@@ -28,8 +46,10 @@ set interfaces vlan unit {{ unit[1] }} family inet address {{ ips.address }}
     {% if intf.description|length %}
 set interfaces vlan unit {{ unit[1] }} description {{ intf.description }}
     {% endif %}
+    {# Configure our loopback interface #}
   {%elif "lo0" in intf.name %}
     {% for ips in nb_ips.json.results %}
+    {# if we see an IP address assigned to this interface from our nb_ips results lets assign it   #}
       {% if ips.interface.id == intf.id %}
 set interfaces lo0 unit 0 family inet address {{ ips.address }}
       {% endif %}
