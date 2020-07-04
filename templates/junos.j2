@@ -5,7 +5,7 @@ set system host-name {{ dev.name }}
 {% for ntp in sys.ntp %}
 set system ntp server {{ ntp }}
 {% endfor %}
-{% for login in sys.login.user %}
+{% for login in nb_device.json.results[0].config_context.system.user %}
 set system login user {{ login.name }} class {{ login.class }}
 set system login user {{ login.name }} authentication encrypted-password {{ login.password }}
 {% endfor %}
