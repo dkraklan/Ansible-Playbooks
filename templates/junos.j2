@@ -5,9 +5,9 @@ set system host-name {{ dev.name }}
 {% for ntp in sys.ntp %}
 set system ntp server {{ ntp }}
 {% endfor %}
-{% for user in sys.login %}
-set system login user {{ user.name }} class {{ user.class }}
-set system login user {{ user.name }} authentication encrypted-password {{ user.password }}
+{% for login in sys.login.user %}
+set system login user {{ login.name }} class {{ login.class }}
+set system login user {{ login.name }} authentication encrypted-password {{ login.password }}
 {% endfor %}
 {% for intf in nb_interfaces.json.results %}
   {% if intf.description|length %}
