@@ -26,13 +26,12 @@ set system login user {{ sys.login.user[login]['name'] }} authentication encrypt
 {# Lets loop through all interfaces #}
 {% for intf in nb_interfaces.json.results %}
 {#Lets delete interfaces with no configs #}
-  {% if (intf.description == '' ) and (intf.mode == none) %}
-  {# {% if intf.description == '' %} #}
-delete interfaces {{ intf.name }}
-  {% endif %}
 
 {# configuer 1g interfaces  #}
   {% if  intf.type.value == "1000base-t" %}
+    {% if (intf.description == '' ) and (intf.mode == none) %}
+delete interfaces {{ intf.name }}
+    {% endif %}
     {% if intf.description|length %}
   set interfaces {{ intf.name }} description {{ intf.description }}
       {% for vlans in intf.tagged_vlans %}
