@@ -7,7 +7,7 @@ set system ntp server {{ ntp }}
 {% endfor %}
 {% for login in sys.login.user %}
 set system login user {{ sys.login.user[login]['name'] }} class {{ sys.login.user[login]['class'] }}
-set system login user {{ sys.login.user[login]['name'] }} authentication encrypted-password {{ sys.login.user[login]['password'] }}
+set system login user {{ sys.login.user[login]['name'] }} authentication encrypted-password "{{ sys.login.user[login]['password'] }}"
 {% endfor %}
 {% for intf in nb_interfaces.json.results %}
   {% if intf.description|length %}
