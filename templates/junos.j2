@@ -3,7 +3,7 @@
 {% set sys = nb_device.json.results[0].config_context.system %}
 set system host-name {{ dev.name }}
 {% for ntp in sys.ntp %}
-set system ntp server {{ ntp }}
+set system ntp server {{ sys.ntp[ntp] }}
 {% endfor %}
 {% for login in sys.login.user %}
 set system login user {{ sys.login.user[login]['name'] }} class {{ sys.login.user[login]['class'] }}
