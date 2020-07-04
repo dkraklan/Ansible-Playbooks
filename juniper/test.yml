@@ -61,3 +61,4 @@
         src_format: set
         update: merge
         comment: update config
+        confirm: 5
