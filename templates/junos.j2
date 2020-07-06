@@ -30,7 +30,7 @@ set system login user {{ sys.login.user[login]['name'] }} authentication encrypt
 {% for intf in nb_interfaces.json.results %}
 {#Lets delete interfaces with no configs #}
 
-{# configuer 1g interfaces  #}
+{# configure 1g interfaces  #} 
   {% if  intf.type.value == "1000base-t" %}
     {% if (intf.description == '' ) and (intf.mode == none) %}
 
