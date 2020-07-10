@@ -37,7 +37,7 @@ set system login user {{ sys.login.user[login]['name'] }} authentication encrypt
 delete interfaces {{ intf.name }}
     {% endif %}
     {% if intf.description|length %}
-  set interfaces {{ intf.name }} description {{ intf.description }}
+  set interfaces {{ intf.name }} description "{{ intf.description }}"
       {% for vlans in intf.tagged_vlans %}
   set interfaces {{ intf.name }} unit 0 family ethernet-switching vlan members {{ vlans.vid }}
         {% if vlansall.append( vlans.vid|string+":"+vlans.name ) %} {% endif %}
@@ -54,7 +54,7 @@ set interfaces vlan unit {{ unit[1] }} family inet address {{ ips.address }}
         {% endif %}
       {% endfor %}
     {% if intf.description|length %}
-set interfaces vlan unit {{ unit[1] }} description {{ intf.description }}
+set interfaces vlan unit {{ unit[1] }} description "{{ intf.description }}"
     {% endif %}
     {# Configure our loopback interface #}
   {%elif "lo0" in intf.name %}
@@ -65,7 +65,7 @@ set interfaces lo0 unit 0 family inet address {{ ips.address }}
       {% endif %}
     {% endfor %}
     {% if intf.description|length %}
-set interfaces lo0 unit 0 {{ intf.description }}
+set interfaces lo0 unit 0 "{{ intf.description }}"
     {% endif %}
   {%endif %}
 {% endfor %}
