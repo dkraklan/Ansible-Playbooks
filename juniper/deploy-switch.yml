@@ -70,4 +70,4 @@
 
     - name: Show where file is stored
       debug:
-        msg: {{ diff }}
+        msg: "{{ diff }}"
