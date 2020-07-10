@@ -62,3 +62,12 @@
         update: merge
         comment: update config
         confirm: 2
+
+    - name: run show version on remote devices
+      junos_command:
+        commands: show | compare
+      register: diff
+
+    - name: Show where file is stored
+      debug:
+        msg: {{ diff }}
