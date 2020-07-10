@@ -43,7 +43,7 @@ delete interfaces {{ intf.name }}
 
   set interfaces {{ intf.name }} unit 0 family ethernet-switching vlan members {{ vlans.vid }}
         {% if vlansall.append( vlans.vid|string+":"+vlans.name ) %} {% endif %}
-        {% if vlans|length > 1 %}
+        {% if intf.tagged_vlans|length > 1 %}
   set interfaces {{ intf.name }} unit 0 family ethernet-switching port-mode trunk
         {%endif %}
       {% endfor %}
