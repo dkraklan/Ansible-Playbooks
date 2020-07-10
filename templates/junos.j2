@@ -38,16 +38,15 @@ delete interfaces {{ intf.name }}
     {% endif %}
     {% if intf.description|length %}
   set interfaces {{ intf.name }} description "{{ intf.description }}"
-      {% if intf.tagged_vlans|length > 1 %}
-        {% for vlans in intf.tagged_vlans %}
-    set interfaces {{ intf.name }} unit 0 family ethernet-switching vlan members {{ vlans.vid }}
-    set interfaces {{ intf.name }} unit 0 family ethernet-switching port-mode trunk
-          {% if vlansall.append( vlans.vid|string+":"+vlans.name ) %} {% endif %}
-        {% endfor %}
-      {% else %}
-        set interfaces {{ intf.name }} unit 0 family ethernet-switching vlan members {{ vlans.vid }} 
-        {% if vlansall.append( vlans.vid|string+":"+vlans.name ) %} {% endif %}     
-      {%endif %}
+
+      {% for vlans in intf.tagged_vlans %}
+
+  set interfaces {{ intf.name }} unit 0 family ethernet-switching vlan members {{ vlans.vid }}
+        {% if vlansall.append( vlans.vid|string+":"+vlans.name ) %} {% endif %}
+        {% if vlans|length > 1 %}
+  set interfaces {{ intf.name }} unit 0 family ethernet-switching port-mode trunk
+        {%endif %}
+      {% endfor %}
     {%endif %}
     {# Configure our l3 vlan interfaces #}
   {% elif "vlan" in intf.name %}
