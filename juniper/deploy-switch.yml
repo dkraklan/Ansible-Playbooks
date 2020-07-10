@@ -65,7 +65,7 @@
 
     - name: run show version on remote devices
       junos_command:
-        commands: show | compare
+        commands: "show | compare"
       register: diff
 
     - name: Show where file is stored
