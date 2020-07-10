@@ -62,12 +62,17 @@
         update: merge
         comment: update config
         confirm: 2
+      register: response
 
     - name: run show version on remote devices
       junos_command:
         commands: " show configuration | compare rollback 1"
       register: diff
 
-    - name: Show where file is stored
+    - name:  Show the changes we made
       debug:
         msg: "{{ diff }}"
+
+    - name: show the output of the commit
+      debug:
+        msg: "{{ response }}"
