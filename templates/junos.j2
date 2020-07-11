@@ -40,11 +40,10 @@ delete interfaces {{ intf.name }}
   set interfaces {{ intf.name }} description "{{ intf.description }}"
 
       {% for vlans in intf.tagged_vlans %}
-  delete interfaces {{ intf.name }} unit 0 
+
   set interfaces {{ intf.name }} unit 0 family ethernet-switching vlan members {{ vlans.vid }}
         {% if vlansall.append( vlans.vid|string+":"+vlans.name ) %} {% endif %}
         {% if intf.tagged_vlans|length > 1 %}
-  delete interfaces {{ intf.name }} unit 0 
   set interfaces {{ intf.name }} unit 0 family ethernet-switching port-mode trunk
         {%endif %}
       {% endfor %}
@@ -55,7 +54,6 @@ delete interfaces {{ intf.name }}
       {% for ips in nb_ips.json.results %}
           {# if we see an IP address assigned to this interface from our nb_ips results lets assign it   #}
         {% if ips.interface.id == intf.id %}
-delete interfaces vlan unit {{ unit[1] }}       
 set interfaces vlan unit {{ unit[1] }} family inet address {{ ips.address }}
           {% if l3_vlans.append( unit[1] ) %} {% endif %}
         {% endif %}
@@ -68,7 +66,6 @@ set interfaces vlan unit {{ unit[1] }} description "{{ intf.description }}"
     {% for ips in nb_ips.json.results %}
     {# if we see an IP address assigned to this interface from our nb_ips results lets assign it   #}
       {% if ips.interface.id == intf.id %}
-delete interfaces lo0 unit 0
 set interfaces lo0 unit 0 family inet address {{ ips.address }}
       {% endif %}
     {% endfor %}
