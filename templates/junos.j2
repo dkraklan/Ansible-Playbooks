@@ -34,11 +34,10 @@ set system login user {{ sys.login.user[login]['name'] }} authentication encrypt
 
 
 {# configure 1g interfaces  #} 
-  {% if  intf.type.value == "1000base-t" %}
-    {% if (intf.description == '' ) and (intf.mode == none) %}
+
 
 delete interfaces {{ intf.name }}
-    {% endif %}
+
     {% if intf.description|length %}
   set interfaces {{ intf.name }} description "{{ intf.description }}"
 
