@@ -30,6 +30,9 @@ set system login user {{ sys.login.user[login]['name'] }} authentication encrypt
 {% for intf in nb_interfaces.json.results %}
 {#Lets delete interfaces with no configs #}
 
+{#This is temporerary as I can't get "update: repalce" to work so fuck it delete everything!#}
+delete interfaces 
+
 {# configure 1g interfaces  #} 
   {% if  intf.type.value == "1000base-t" %}
     {% if (intf.description == '' ) and (intf.mode == none) %}
