@@ -59,7 +59,7 @@
       junos_config:
         src: /home/awx/tmp_files/{{ inventory_hostname }}.set
         src_format: set
-        update: merge
+        update: overwrite
         comment: update config
         confirm: 2
       register: response
