@@ -81,9 +81,9 @@ set interfaces lo0 unit 0 "{{ intf.description }}"
     {% endif %}
   {%endif %}
 {% endfor %}
-delete vlans
+
 {% for vlans_add in vlansall|unique %}
-  {% set vid, vname = vlans_add.split(':') %}
+  {% set vid, vname = vlans_add.split(':') %}  
 set vlans {{ vname }} vlan-id {{ vid }}
 {# Lets loop through our l3_vlans array and see if we have any layer3 vlans, if so define the l3 interface #}
   {% for l3_vid in l3_vlans %}
