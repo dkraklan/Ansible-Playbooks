@@ -48,9 +48,11 @@ delete interfaces {{ intf.name }}
         {% if vlansall.append( vlans.vid|string+":"+vlans.name ) %} {% endif %}
         
       {% endfor %}
-    {% if intf.tagged_vlans|length > 1 %}
-  set interfaces {{ intf.name }} unit 0 family ethernet-switching port-mode trunk
-        {%endif %}
+
+      {% if intf.tagged_vlans|length > 1 %}
+  set interfaces {{ intf.name }} unit 0 family ethernet-switching port-mode trunk test
+      {%endif %}
+
     {%endif %}
 
     {# Configure our l3 vlan interfaces #}
